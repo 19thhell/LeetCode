@@ -14,7 +14,7 @@ public:
         while (*cur) {
             iter = &head;
             while ((*iter)->val < (*cur)->val && iter != cur)
-              iter = &((*iter)->next);
+                iter = &((*iter)->next);
             if (iter != cur) {
                 ListNode *tmp = *iter;
                 *iter = *cur;
