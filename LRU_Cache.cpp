@@ -38,7 +38,7 @@ public:
 		}
     }
 private:
-	map<int, list<CacheBlock>::iterator> cache_map;
+	unordered_map<int, list<CacheBlock>::iterator> cache_map;
 	list<CacheBlock> cache_list;
 	int max_size;
 };
