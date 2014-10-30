@@ -20,19 +20,19 @@ public:
         // Note: The Solution object is instantiated only once and is reused by each test case.
         vector<vector<int> > result;
         if (!num.empty())
-            permutation(result, num, 0, num.size() - 1);
+            permutation(result, num, 0);
         return result;
     }
 
-    void permutation(vector<vector<int> > &result, vector<int> &num, int beg, int end) {
-        if (beg >= end) {
+    void permutation(vector<vector<int> > &result, vector<int> &num, int k) {
+		if (k >= num.size())
             result.push_back(num);
             return;
         }
-        for (int i = beg;i <= end;i++) {
-            swap(num[beg], num[i]);
-            permutation(result, num, beg + 1, end);
-            swap(num[beg], num[i]);
+        for (int i = k;i < num.size();i++) {
+            swap(num[k], num[i]);
+            permutation(result, num, k + 1);
+            swap(num[k], num[i]);
         }
     }
 };
