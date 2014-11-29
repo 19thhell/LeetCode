@@ -1,3 +1,26 @@
+//Elegant way
+class Solution {
+public:
+    void reverseWords(string &s) {
+        if (s.size() == 0)
+            return;
+        stringstream ss;
+        string word;
+        stack<string> stk;
+        ss << s;
+        while (ss >> word) {
+            stk.push(word);
+        }
+        s = "";
+        while (!stk.empty()) {
+            s += stk.top();
+            stk.pop();
+            if (!stk.empty())
+                s += " ";
+        }
+    }
+};
+//Clunky
 class Solution {
 public:
     void reverseWords(string &s) {
