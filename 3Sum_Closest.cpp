@@ -2,10 +2,8 @@ class Solution {
 public:
     int threeSumClosest(vector<int> &num, int target) {
         // Note: The Solution object is instantiated only once and is reused by each test case.
-        int result = 999999;
-        int sum = 0;
+        int result = 0x7fffffff, sum = 0, n1, n2, n3;
         sort(num.begin(), num.end());
-        int n1, n2, n3;
         for (n1 = 0;n1 < num.size() - 2;n1++) {
             n2 = n1 + 1;
             n3 = num.size() - 1;
