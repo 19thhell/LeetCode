@@ -11,22 +11,19 @@ class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         ListNode *pA = headA, *pB = headB;
-        bool redirectA = false, redirectB = false;
-        while (pA && pB) {
-            if (pA->val == pB->val)
-                return pA;
+        if (!pA || !pB)
+            return NULL;
+        while (pA && pB && pA != pB) {
             pA = pA->next;
             pB = pB->next;
-            if (!pA && !redirectA) {
+            if (pA == pB)
+                break;
+            if (!pA)
                 pA = headB;
-                redirectA = true;
-            }
-            if (!pB && !redirectB) {
+            if (!pB)
                 pB = headA;
-                redirectB = true;
-            }
         }
-        return NULL;
+        return pA;
     }
 };
 //Straight forward
@@ -62,7 +59,7 @@ public:
             pB = pB->next;
         }
         while (pA && pB) {
-            if (pA->val == pB->val)
+			if (pA == pB)
                 return pA;
             pA = pA->next;
             pB = pB->next;
