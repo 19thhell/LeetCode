@@ -2,39 +2,36 @@ class Solution {
 public:
     vector<vector<int> > threeSum(vector<int> &num) {
         vector<vector<int> > result;
-        int sum = 0;
         sort(num.begin(), num.end());
         if (num.size() < 3)
             return result;
-        int n1 = 0, n2 = 0, n3 = 0;
-        vector<int> tmp;
-        for (n1 = 0;n1 < num.size() - 2;n1++) {
-            if (n1 > 0 && num[n1] == num[n1 - 1])
+        int sum = 0, n[3];
+		vector<int> solution(3);
+        for (n[0] = 0;n[0] < num.size() - 2;n[0]++) {
+            if (n[0] > 0 && num[n[0]] == num[n[0] - 1])
                 continue;
-            n2 = n1 + 1;
-            n3 = num.size() - 1;
-            while (n2 < n3) {
-                if(n2 > n1 + 1 && num[n2] == num[n2 - 1]){
-                    n2++;
+            n[1] = n[0] + 1;
+            n[2] = num.size() - 1;
+            while (n[1] < n[2]) {
+                if(n[1] > n[0] + 1 && num[n[1]] == num[n[1] - 1]){
+                    n[1]++;
                     continue;
                 }
-                if(n3 < num.size() - 1 && num[n3] == num[n3 + 1]){
-                    n3--;
+                if(n[2] < num.size() - 1 && num[n[2]] == num[n[2] + 1]){
+                    n[2]--;
                     continue;
                 }
-                sum = num[n2] + num[n3];
-                if (sum == -num[n1]) {
-                    tmp.push_back(num[n1]);
-                    tmp.push_back(num[n2]);
-                    tmp.push_back(num[n3]);
-                    result.push_back(tmp);
-                    tmp.clear();
-                    n2++;
+                sum = num[n[1]] + num[n[2]];
+                if (sum == -num[n[0]]) {
+                    for (int i = 0;i < 3;i++)
+                        solution[i] = num[n[i]];
+                    result.push_back(solution);
+                    n[1]++;
                 }
                 else {
-                    if (sum < -num[n1])
-                        n2++;
-                    else n3--;
+                    if (sum < -num[n[0]])
+                        n[1]++;
+                    else n[2]--;
                 }
             }
         }

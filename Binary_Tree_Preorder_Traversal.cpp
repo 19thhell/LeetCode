@@ -16,7 +16,7 @@ public:
         preorderTraversal(root, result);
         return result;
     }
-
+private:
     void preorderTraversal(TreeNode *root, vector<int> &result) {
         if (!root)
             return;
