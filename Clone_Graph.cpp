@@ -13,15 +13,15 @@ public:
             return NULL;
         unordered_map<int, UndirectedGraphNode *> new_nodes;
         queue<UndirectedGraphNode *> q;
-        UndirectedGraphNode *origin, *replica;
         q.push(node);
+        UndirectedGraphNode *origin, *replica;
         while (!q.empty()) {
             origin = q.front();
             q.pop();
             if (new_nodes.find(origin->label) == new_nodes.end()) {
                 new_nodes[origin->label] = new UndirectedGraphNode(origin->label);
-                for (int i = 0;i < origin->neighbors.size();i++)
-                    q.push(origin->neighbors[i]);
+                for (auto adj : origin->neighbors)
+                    q.push(adj);
             }
         }
         q.push(node);
@@ -30,9 +30,9 @@ public:
             q.pop();
             replica = new_nodes[origin->label];
             if (replica->neighbors.empty())
-                for (int i = 0;i < origin->neighbors.size();i++) {
-                    replica->neighbors.push_back(new_nodes[origin->neighbors[i]->label]);
-                    q.push(origin->neighbors[i]);
+                for (auto adj : origin->neighbors) {
+                    replica->neighbors.push_back(new_nodes[adj->label]);
+                    q.push(adj);
                 }
         }
         return new_nodes[node->label];

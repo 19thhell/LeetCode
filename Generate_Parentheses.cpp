@@ -8,7 +8,7 @@ public:
             Combination(result, s, 0, n, 0, 0);
         return result;
     }
-
+private:
     void combination(vector<string> &result, string &s, int depth, int n, int left, int right) {
         if (depth == 2 * n) {
             result.push_back(s);

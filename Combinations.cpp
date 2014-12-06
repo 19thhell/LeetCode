@@ -7,7 +7,7 @@ public:
         dfs(result, c, 1, n, k);
         return result;
     }
-
+private:
     void dfs(vector<vector<int> > &result, vector<int> &c, int s, int n, int k) {
         if (c.size() == k) {
             result.push_back(c);

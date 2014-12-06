@@ -9,7 +9,7 @@ public:
         generate(result, candidates, sub, 0, target);
         return result;
     }
-
+private:
     void generate(vector<vector<int> > &result, vector<int> &cand, vector<int> &sub, int head, int target) {
         for (int i = head;i < cand.size();i++) {
             if (i != head && cand[i] == cand[i - 1])

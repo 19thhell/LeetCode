@@ -13,22 +13,28 @@ public:
             stk.pop();
             int n = stk.top();
             stk.pop();
-            if (tokens[i] == "+")
-                stk.push(n + m);
-            else if (tokens[i] == "-")
-                stk.push(n - m);
-            else if (tokens[i] == "*")
-                stk.push(n * m);
-            else if (tokens[i] == "/")
-                stk.push(n / m);
+            switch (tokens[i][0]) {
+                case '+':
+                    stk.push(n + m);
+                    break;
+                case '-':
+                    stk.push(n - m);
+                    break;
+                case '*':
+                    stk.push(n * m);
+                    break;
+                case '/':
+                    stk.push(n / m);
+                    break;
+            }
         }
         return stk.top();
     }
-
+private:
     inline bool isOperator(string s) {
         return (s == "+" || s == "-" || s == "*" || s == "/");
     }
-
+    
     int toInt(string s) {
         int sign = 1, cnt = 0, result = 0;
         if (s[0] == '-') {

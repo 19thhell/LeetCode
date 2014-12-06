@@ -16,18 +16,24 @@ public:
 		result = divide(abs_dividend, abs_divisor);
 		return sign ? -result : result;
 	}
-
+private:
 	int divide(long long abs_dividend, long long abs_divisor) {
 		if (abs_dividend < abs_divisor)
 			return 0;
-        int cnt = 1, rest = 0;
+		else if (abs_dividend == abs_divisor)
+		    return 1;
+        int cnt = 1, result = 0;
 		long long divi = abs_divisor;
-        while (abs_divisor + abs_divisor <= abs_dividend) {
-            abs_divisor += abs_divisor;
-            cnt += cnt;
-        }
-		if (abs_divisor != abs_dividend)
-			rest = divide(abs_dividend - abs_divisor, divi);
-		return cnt + rest;
+		while (abs_dividend > abs_divisor) {
+            while ((abs_divisor * 2) <= abs_dividend) {
+                abs_divisor *= 2;
+                cnt *= 2;
+            }
+            abs_dividend -= abs_divisor;
+            abs_divisor = divi;
+            result += cnt;
+            cnt = 1;
+		}
+		return result;
     }
 };

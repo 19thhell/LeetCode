@@ -8,8 +8,7 @@ public:
             return 2;
         else {
             int result[2] = {1, 2};
-            int index = 0;
-            int step = 3;
+            int index = 0, step = 3;
             while (step <= n){
                 result[index] = result[0] + result[1];
                 index ^= 1;

@@ -8,7 +8,7 @@ public:
             s = countAndSay(s);
         return s;
     }
-
+private:
     string countAndSay(string &s) {
         char key = s[0];
         int cnt = 0;

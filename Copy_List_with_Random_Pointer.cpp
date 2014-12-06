@@ -11,16 +11,23 @@ public:
     RandomListNode *copyRandomList(RandomListNode *head) {
         if (!head)
             return NULL;
-        RandomListNode *pHead = new RandomListNode(head->label), *pNext = head->next, **cur = &pHead;
-        if (head->random)
-            pHead->random = new RandomListNode(head->random->label);
-        while (pNext) {
-            (*cur)->next = new RandomListNode(pNext->label);
-            if (pNext->random)
-                (*cur)->next->random = new RandomListNode(pNext->random->label);
-            cur = &((*cur)->next);
-            pNext = pNext->next;
+        RandomListNode *newHead = new RandomListNode(head->label), **pOld = &head, **pNew = &newHead;
+        unordered_map<int, RandomListNode*> table;
+        table[head->label] = newHead;
+        while ((*pOld)->next) {
+            (*pNew)->next = new RandomListNode((*pOld)->next->label);
+            table[(*pOld)->next->label] = (*pNew)->next;
+            pOld = &((*pOld)->next);
+            pNew = &((*pNew)->next);
         }
-        return pHead;
+        pOld = &head;
+        pNew = &newHead;
+        while ((*pOld)) {
+            if ((*pOld)->random)
+                (*pNew)->random = table[(*pOld)->random->label];
+            pOld = &((*pOld)->next);
+            pNew = &((*pNew)->next);
+        }
+        return newHead;
     }
 };

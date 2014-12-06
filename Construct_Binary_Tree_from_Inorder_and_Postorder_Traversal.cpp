@@ -14,13 +14,12 @@ public:
         // the same Solution instance will be reused for each test case.
         return buildTree(inorder, 0, inorder.size() - 1, postorder, 0, postorder.size() - 1);
     }
-
+private:
      TreeNode *buildTree(vector<int> &inorder, int in_head, int in_tail, vector<int> &postorder, int post_head, int post_tail) {
         if (in_head > in_tail || post_head > post_tail)
             return NULL;
-        int root_val = postorder[post_tail];
+        int root_val = postorder[post_tail], index = 0;
         TreeNode *root = new TreeNode(root_val);
-        int index = 0;
         for (int i = in_head;i <= in_tail;i++) {
             if (inorder[i] == root_val) {
                 index = i;

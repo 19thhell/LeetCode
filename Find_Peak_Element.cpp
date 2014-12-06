@@ -19,14 +19,7 @@ private:
     }
     
     bool isPeak(const vector<int> &num, int index) {
-        if (index == 0 && index == num.size() - 1)
-            return true;
-        else if (index == 0 && index < num.size() - 1 && num[index] > num[index + 1])
-            return true;
-        else if (index > 0 && index == num.size() - 1 && num[index] > num[index - 1])
-            return true;
-        else if (index > 0 && index < num.size() - 1 && num[index] > num[index - 1] && num[index] > num[index + 1])
-            return true;
-        else return false;
+        int inf = 0x80000000, left = (index == 0) ? inf : num[index - 1], right = (index == num.size() - 1) ? inf : num[index + 1];
+		return (left == inf || num[index] > left) && (right == inf || num[index] > right);
     }
 };

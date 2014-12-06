@@ -18,25 +18,27 @@
 class Solution {
 public:
     TreeNode *sortedListToBST(ListNode *head) {
-        // IMPORTANT: Please reset any member data you declared, as
-        // the same Solution instance will be reused for each test case.
-        vector<int> arr;
+        ListNode **pHead = &head;
+        return buildTree(pHead, listLength(head));
+    }
+private:
+    int listLength(ListNode *head) {
+        int n = 0;
         while (head) {
-            arr.push_back(head->val);
             head = head->next;
+            n++;
         }
-        return sortedArrayToBST(arr, 0, arr.size() - 1);
+        return n;
     }
 
-    TreeNode *sortedArrayToBST(vector<int> &num, int left, int right){
-        if (left > right)
+    TreeNode *buildTree(ListNode **pHead, int n) {
+        if (!n)
             return NULL;
-        else {
-            int mid = (left + right) / 2;
-            TreeNode *tmp = new TreeNode(num[mid]);
-            tmp->left = sortedArrayToBST(num, left, mid - 1);
-            tmp->right = sortedArrayToBST(num, mid + 1, right);
-            return tmp;
-        }
+        TreeNode *tree = new TreeNode(0);
+        tree->left = buildTree(pHead, n / 2);
+        tree->val = (*pHead)->val;
+        *pHead = (*pHead)->next;
+        tree->right = buildTree(pHead, n - n / 2 - 1);
+        return tree;
     }
 };
