@@ -22,7 +22,7 @@ public:
 					result.push_back(intervals[j]);
 				return result;
 			}
-			if (newInterval.start <= intervals[i].end) {
+			else if (newInterval.start <= intervals[i].end) {v
 				newInterval.start = min(intervals[i].start, newInterval.start);
 				newInterval.end = max(intervals[i].end, newInterval.end);
 			}

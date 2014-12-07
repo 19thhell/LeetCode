@@ -1,16 +1,6 @@
 //Manacher algorithm
 class Solution {
 public:
-    string process(string s) {
-        if (s.size() == 0)
-            return "^$";
-        string res = "^";
-        for (int i = 0;i < s.size();i++)
-            res += "#" + s.substr(i, 1);
-        res += "#$";
-        return res;
-    }
-    
     string longestPalindrome(string s) {
         string t = process(s);
         vector<int> p(t.size());
@@ -32,5 +22,15 @@ public:
                 id = i;
             }
         return s.substr((id - maxl) / 2, maxl - 1);
+    }
+private
+    string process(string s) {
+        if (s.size() == 0)
+            return "^$";
+        string res = "^";
+        for (int i = 0;i < s.size();i++)
+            res += "#" + s.substr(i, 1);
+        res += "#$";
+        return res;
     }
 };

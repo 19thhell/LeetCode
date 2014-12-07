@@ -4,13 +4,17 @@ public:
         // Note: The Solution object is instantiated only once and is reused by each test case.
         if (strs.empty())
             return "";
-        string s;
-        for (int i = 0;i < strs[0].size();i++) {
-            for (int j = 1;j < strs.size();j++)
-                if (i > strs[j].size() || strs[j][i] != strs[j - 1][i])
-                    return s;
-            s += strs[0][i];
-        }
-        return s;
+        string result = strs[0];
+        for (string s : strs)
+            result = common(result, s);
+        return result;
+    }
+private:
+    string common(string &a, string &b) {
+        int maxl = min(a.size(), b.size()), p;
+        for (p = 0;p < maxl;p++)
+            if (a[p] != b[p])
+                break;
+        return a.substr(0, p);
     }
 };

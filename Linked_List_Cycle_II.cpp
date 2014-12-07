@@ -13,20 +13,21 @@ public:
         // the same Solution instance will be reused for each test case.
         if (!head)
             return head;
-        ListNode *p1 = head, *p2 = head;
-        while (p2) {
-            p2 = p2->next;
-            if (!p2)
+        ListNode *pSlow = head;
+        ListNode *pFast = head;
+        while (pFast) {
+            pFast = pFast->next;
+            if (!pFast)
                 return NULL;
-            p1 = p1->next;
-            p2 = p2->next;
-            if (p1 == p2) {
-                p1 = head;
-                while (p1 != p2) {
-                    p1 = p1->next;
-                    p2 = p2->next;
+            pSlow = pSlow->next;
+            pFast = pFast->next;
+            if (pSlow == pFast) {
+                pSlow = head;
+                while (pSlow != pFast) {
+                    pSlow = pSlow->next;
+                    pFast = pFast->next;
                 }
-                return p1;
+                return pSlow;
             }
         }
         return NULL;

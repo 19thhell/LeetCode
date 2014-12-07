@@ -1,16 +1,10 @@
 class Solution {
 public:
     int lengthOfLastWord(const char *s) {
-        int cnt = 0, c_max = 0;
-        while(*s) {
-            if (*s == ' ')
-                cnt = 0;
-            else {
-                cnt++;
-                c_max = cnt;
-            }
-            s++;
-        }
-        return c_max;
+        stringstream ss;
+        ss << s;
+        string last;
+        while (ss >> last);
+        return last.size();
     }
-};;
+};
