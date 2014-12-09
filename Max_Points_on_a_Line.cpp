@@ -27,7 +27,7 @@ public:
                 else k = (double)(points[i].y - points[j].y) / (points[i].x - points[j].x);
                 slopes[k]++;
             }
-            for (unordered_map<double, int>::iterator p = slopes.begin();p != slopes.end();p++)
+            for (auto p = slopes.begin();p != slopes.end();p++)
                 if (p->second + same > max_num)
                     max_num = p->second + same;
         }

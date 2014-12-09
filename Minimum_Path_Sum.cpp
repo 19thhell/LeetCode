@@ -6,9 +6,8 @@ public:
             return 0;
         int m = grid.size();
         int n = grid[0].size();
-        vector<vector<int> > dist(m);
+        vector<vector<int> > dist(m, vector<int>(n));
         for (int i = 0;i < m;i++) {
-            dist[i] = vector<int>(n);
             for (int j = 0;j < n;j++)
                 dist[i][j] = grid[i][j];
         }

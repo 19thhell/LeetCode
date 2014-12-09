@@ -1,3 +1,4 @@
+//Convert problem into another problem
 class Solution {
 public:
     int maximalRectangle(vector<vector<char> > &matrix) {
@@ -8,8 +9,8 @@ public:
         for (int i = 0;i < row;i++) {
             for (int j = 0;j < col;j++) {
                 if (matrix[i][j] == '1')
-					height++;
-				else height = 0;
+					height[j]++;
+				else height[j] = 0;
             }
             result = max(result, largestRectangleArea(height));
         }

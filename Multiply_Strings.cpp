@@ -1,24 +1,26 @@
 class Solution {
 public:
     string multiply(string num1, string num2) {
-		int n1 = num1.size(), n2 = num2.size(), pos = 0;
-		string multiple(n1 + n2, 0);
-        for (int i = 0;i < n1;i++)
-			num1[i] -= '0';
-		for (int i = 0;i < n2;i++)
-			num2[i] -= '0';
-		for (int i = n1 - 1;i >= 0;i--) {
-			for (int j = n2 - 1;j >= 0;j--) {
-				multiple[i + j + 1] += num1[i] * num2[j];
-				multiple[i + j] += multiple[i + j + 1] / 10;
-				multiple[i + j + 1] %= 10;
+		string multiple(num1.size() + num2.size(), 0);
+        for (char &c : num1)
+			c -= '0';
+		for (char &c : num2)
+			c -= '0';
+		for (auto q1 = num1.rbegin();q1 != num1.rend();q1++) {
+		    auto p = multiple.begin() + (q1 - num1.rbegin());
+			for (auto q2 = num2.rbegin();q2 != num2.rend();q2++) {
+			    *p += (*q1) * (*q2);
+				*(p + 1) += *p / 10;
+				*p %= 10;
+				p++;
 			}
 		}
-		while (multiple[pos] == 0 && pos < multiple.size() - 1)
-			pos++;
-		for (int i = pos;i < multiple.size();i++)
-			multiple[i] += '0';
-		multiple = multiple.substr(pos);
+		auto p = multiple.rbegin();
+		while (*p == 0 && (p + 1) != multiple.rend())
+			p++;
+		multiple = string(p, multiple.rend());
+		for (char &c : multiple)
+		    c += '0';
 		return multiple;
     }
 };

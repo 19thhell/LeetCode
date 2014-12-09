@@ -8,7 +8,7 @@ public:
         putQueen(row, 1, n, result);
         return result;
     }
-
+private:
     void putQueen(vector<int> &row, int n, int total, vector<vector<string> > &result) {
         int i, j;
         for (i = 1;i <= total;i++) {

@@ -2,14 +2,13 @@ class Solution {
 public:
     void merge(int A[], int m, int B[], int n) {
         // Note: The Solution object is instantiated only once and is reused by each test case.
-        int i = m - 1, j = n - 1, k = m + n - 1;
-        while (i >= 0 && j >= 0){
-            if (A[i] > B[j])
-                A[k--] = A[i--];
-            else
-                A[k--] = B[j--];
+        int *pA = A + m - 1, *pB = B + n - 1, *pMerge = A + m + n - 1;
+        while (pA >= A && pB >= B){
+            if (*pA > *pB)
+                *pMerge-- = *pA--;
+            else *pMerge-- = *pB--;
         }
-        while (j >= 0)
-            A[k--] = B[j--];
+        while (pB >= B)
+            *pMerge-- = *pB--;
     }
 };
