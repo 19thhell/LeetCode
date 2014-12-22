@@ -4,7 +4,7 @@ public:
         return peak(num, 0, num.size() - 1);
     }
 private:
-    int peak(const vector<int> &num, int left, int right) {
+    int peak(const vector<int> &num, const int left, const int right) {
         if (left > right)
             return -1;
         int mid = (left + right) / 2;
@@ -18,8 +18,8 @@ private:
         }
     }
     
-    bool isPeak(const vector<int> &num, int index) {
-        int inf = 0x80000000, left = (index == 0) ? inf : num[index - 1], right = (index == num.size() - 1) ? inf : num[index + 1];
-		return (left == inf || num[index] > left) && (right == inf || num[index] > right);
+    inline bool isPeak(const vector<int> &num, const int index) {
+        long long inf = -1LL << 32, left = (index == 0) ? inf : (long long)num[index - 1], right = (index == num.size() - 1) ? inf : (long long)num[index + 1], val = (long long)num[index];
+		return val > left && val > right;
     }
 };
