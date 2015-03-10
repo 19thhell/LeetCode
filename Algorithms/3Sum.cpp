@@ -5,33 +5,39 @@ public:
         sort(num.begin(), num.end());
         if (num.size() < 3)
             return result;
-        int sum = 0, n[3];
-		vector<int> solution(3);
-        for (n[0] = 0;n[0] < num.size() - 2;n[0]++) {
-            if (n[0] > 0 && num[n[0]] == num[n[0] - 1])
+        int sum = 0;
+        for (int i = 0; i < num.size() - 2; i++)
+        {
+            if (i > 0 && num[i] == num[i - 1])
                 continue;
-            n[1] = n[0] + 1;
-            n[2] = num.size() - 1;
-            while (n[1] < n[2]) {
-                if(n[1] > n[0] + 1 && num[n[1]] == num[n[1] - 1]){
-                    n[1]++;
-                    continue;
+            int left = i + 1, right = num.size() - 1, target = -num[i];
+            while (left < right)
+            {
+                sum = num[left] + num[right];
+                if (sum < target)
+                {
+                    do
+                    {
+                        left++;
+                    }
+                    while (left < right && num[left] == num[left - 1]);
                 }
-                if(n[2] < num.size() - 1 && num[n[2]] == num[n[2] + 1]){
-                    n[2]--;
-                    continue;
+                else if (sum > target)
+                {
+                    do
+                    {
+                        right--;
+                    }
+                    while (left < right && num[right] == num[right + 1]);
                 }
-                sum = num[n[1]] + num[n[2]];
-                if (sum == -num[n[0]]) {
-                    for (int i = 0;i < 3;i++)
-                        solution[i] = num[n[i]];
-                    result.push_back(solution);
-                    n[1]++;
-                }
-                else {
-                    if (sum < -num[n[0]])
-                        n[1]++;
-                    else n[2]--;
+                else
+                {
+                    vector<int> triplet{num[i], num[left], num[right]};
+                    result.push_back(triplet);
+                    while (left < right && num[left] == triplet[1])
+                        left++;
+                    while (left < right && num[right] == triplet[2])
+                        right--;
                 }
             }
         }

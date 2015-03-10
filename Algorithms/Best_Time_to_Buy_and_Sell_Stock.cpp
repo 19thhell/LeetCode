@@ -5,10 +5,11 @@ public:
         if (prices.empty())
             return 0;
         int leftmin = prices[0], result = 0;
-        for (int i = 1;i < prices.size();i++){
-            result = max(result, prices[i] - leftmin);
+        for (int i = 1; i < prices.size(); i++){
             if (prices[i] < leftmin)
                 leftmin = prices[i];
+            else if (prices[i] - leftmin > result)
+                result = prices[i] - leftmin;
         }
         return result;
     }

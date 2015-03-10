@@ -13,10 +13,12 @@ public:
         while (l1 && l2) {
             l1->val += l2->val;
             if (l1->val > 9)
+            {
                 if (!l1->next)
-                    l1->next = new ListNode(l1->val / 10);
-                else l1->next->val += l1->val / 10;
-            l1->val %= 10;
+                    l1->next = new ListNode(1);
+                else l1->next->val++;
+                l1->val -= 10;
+            }
 			if (!l1->next && l2->next) {
 				l1->next = l2->next;
 				break;
@@ -26,9 +28,9 @@ public:
         }
 		while (l1 && l1->val > 9) {
 			if (!l1->next)
-				l1->next = new ListNode(l1->val / 10);
-            else l1->next->val += l1->val / 10;
-			l1->val %= 10;
+				l1->next = new ListNode(1);
+            else l1->next->val++;
+			l1->val -= 10;
 			l1 = l1->next;
 		}
 		return head;

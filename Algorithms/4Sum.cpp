@@ -7,36 +7,44 @@ public:
         if (num.size() < 4)
             return result;
         sort(num.begin(), num.end());
-        int sum = 0, n[4];
-        vector<int> solution(4);
-        for (n[0] = 0;n[0] < num.size() - 3;n[0]++) {
-            if (n[0] > 0 && num[n[0]] == num[n[0] - 1])
+        int sum = 0;
+        for (int i = 0; i < num.size() - 3; i++)
+        {
+            if (i > 0 && num[i] == num[i - 1])
                 continue;
-            for (n[1] = n[0] + 1;n[1] < num.size() - 2;n[1]++) {
-                if (n[1] > n[0] + 1 && num[n[1]] == num[n[1] - 1])
+            int target3 = target - num[i];
+            for (int j = i + 1; j < num.size() - 2; j++)
+            {
+                if (j > i + 1 && num[j] == num[j - 1])
                     continue;
-                n[2] = n[1] + 1;
-                n[3] = num.size() - 1;
-                while (n[2] < n[3]) {
-                    if (n[2] > n[1] + 1 && num[n[2]] == num[n[2] - 1]) {
-                        n[2]++;
-                        continue;
+                int target2 = target3 - num[j], left = j + 1, right = num.size() - 1;
+                while (left < right)
+                {
+                    sum = num[left] + num[right];
+                    if (sum < target2)
+                    {
+                        do
+                        {
+                            left++;
+                        }
+                        while (left < right && num[left] == num[left - 1]);
                     }
-                    if (n[3] < num.size() - 1 && num[n[3]] == num[n[3] + 1]) {
-                        n[3]--;
-                        continue;
+                    else if (sum > target2)
+                    {
+                        do
+                        {
+                            right--;
+                        }
+                        while (left < right && num[right] == num[right + 1]);
                     }
-                    sum = num[n[0]] + num[n[1]] + num[n[2]] + num[n[3]];
-                    if (sum == target) {
-                        for (int i = 0;i < 4;i++)
-                            solution[i] = num[n[i]];
-                        result.push_back(solution);
-                        n[2]++;
-                    }
-                    else {
-                        if (sum < target)
-                            n[2]++;
-                        else n[3]--;
+                    else
+                    {
+                        vector<int> quadraple{num[i], num[j], num[left], num[right]};
+                        result.push_back(quadraple);
+                        while (left < right && num[left] == quadraple[2])
+                            left++;
+                        while (left < right && num[right] == quadraple[3])
+                            right--;
                     }
                 }
             }

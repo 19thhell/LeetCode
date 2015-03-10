@@ -3,24 +3,50 @@ public:
     string addBinary(string a, string b) {
         if (a.size() > b.size())
             swap(a, b);
-        if (a.size() == 0)
-            return b;
-        vector<short> num(b.size() + 1, 0);
-        string result;
-        int cur = 0;
-        auto p = a.rbegin(), q = b.rbegin();
-        for (;p != a.rend() && q != b.rend();p++, q++, cur++) {
-            num[cur] += (*p - '0') + (*q - '0');
-            num[cur + 1] += num[cur] / 2;
-            num[cur] %= 2;
+        string result(b.size() + 1, '0');
+        int forward = 0;
+        auto pa = a.rbegin(), pb = b.rbegin(), pr = result.rbegin();
+        while (pa != a.rend() && pb != b.rend())
+        {
+            *pr++ = add(*pa++, *pb++, forward);
         }
-        for (;q != b.rend();q++, cur++) {
-            num[cur] += (*q - '0');
-            num[cur + 1] += num[cur] / 2;
-            num[cur] %= 2;
+        while (pb != b.rend())
+        {
+            *pr++ = add('0', *pb++, forward);
         }
-        for (cur = (int)(num.size() - 1) + (num.back() - 1);cur >= 0;cur--)
-            result += (char)(num[cur] + '0');
+        if (forward == 1)
+            *pr++ = '1';
+        if (result[0] == '0')
+            result = result.substr(1);
         return result;
+    }
+private:
+    char add(char a, char b, int &forward)
+    {
+        if (a != b)
+        {
+            if (forward)
+                return '0';
+            else return '1';
+        }
+        else if (a == '0')
+        {
+            if (forward)
+            {
+                forward = 0;
+                return '1';
+            }
+            else return '0';
+        }
+        else
+        {
+            if (forward)
+                return '1';
+            else
+            {
+                forward = 1;
+                return '0';
+            }
+        }
     }
 };

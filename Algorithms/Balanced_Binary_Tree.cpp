@@ -10,22 +10,20 @@
 class Solution {
 public:
     bool isBalanced(TreeNode *root) {
-        bool balance = true;
-        maxDepth(root, 0, balance);
-        return balance;
+        return maxDepth(root, 0) != -1;
     }
 private:
-    int maxDepth(TreeNode *root, int depth, bool &balance) {
+    int maxDepth(TreeNode *root, int depth) {
         if (!root)
-            return depth - 1;
-        int left = maxDepth(root->left, depth + 1, balance);
-        if (!balance)
-            return depth;
-        int right = maxDepth(root->right, depth + 1, balance);
-        if (!balance)
-            return depth;
+            return 0;
+        int left = maxDepth(root->left, depth + 1);
+        if (left == -1)
+            return -1;
+        int right = maxDepth(root->right, depth + 1);
+        if (right == -1)
+            return -1;
         if (abs(left - right) > 1)
-            balance = false;
-        return max(left, right);
+            return -1;
+        return max(left, right) + 1;
     }
 };
