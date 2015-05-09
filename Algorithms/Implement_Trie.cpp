@@ -1,13 +1,11 @@
 class TrieNode {
 public:
     // Initialize your data structure here.
-    TrieNode() {
-        isEnd = false;
-        next = NULL;
-        child = NULL;
+    TrieNode() : val('-'), isEnd(false), next(NULL), child(NULL) {
+        
     }
     
-    char val = '-';
+    char val;
     bool isEnd;
     TrieNode* next;
     TrieNode* child;
@@ -21,22 +19,33 @@ public:
 
     // Inserts a word into the trie.
     void insert(string s) {
-        TrieNode* cur = root;
+        TrieNode** pCur = &root;
         for (auto ch : s) {
-            if (!cur->child) {
-                cur->child = new TrieNode();
-                cur->child->val = ch;
+            bool used = false;
+            TrieNode* newNode = new TrieNode();
+            newNode->val = ch;
+            if (!(*pCur)->child) {
+                (*pCur)->child = newNode;
+                used = true;
             }
-            cur = cur->child;
-            while (cur->val != ch) {
-                if (!cur->next) {
-                    cur->next = new TrieNode();
-                    cur->next->val = ch;
+            pCur = &((*pCur)->child);
+            while ((*pCur)->val < ch) {
+                if (!(*pCur)->next) {
+                    (*pCur)->next = newNode;
+                    used = true;
                 }
-                cur = cur->next;
+                pCur = &((*pCur)->next);
             }
+            if ((*pCur)->val != ch) {
+                newNode->next = *pCur;
+                *pCur = newNode;
+                pCur = &(*pCur);
+                used = true;
+            }
+            if (!used)
+                delete newNode;
         }
-        cur->isEnd = true;
+        (*pCur)->isEnd = true;
     }
 
     // Returns if the word is in the trie.
@@ -44,13 +53,10 @@ public:
         TrieNode* cur = root;
         for (auto ch : key) {
             cur = cur->child;
-            if (!cur)
-                return false;
-            while (cur->val != ch) {
+            while (cur && cur->val < ch)
                 cur = cur->next;
-                if (!cur)
-                    return false;
-            }
+            if (!cur || cur->val != ch)
+                return false;
         }
         return cur->isEnd;
     }
@@ -61,13 +67,10 @@ public:
         TrieNode* cur = root;
         for (auto ch : prefix) {
             cur = cur->child;
-            if (!cur)
-                return false;
-            while (cur->val != ch) {
+            while (cur && cur->val < ch)
                 cur = cur->next;
-                if (!cur)
-                    return false;
-            }
+            if (!cur || cur->val != ch)
+                return false;
         }
         return true;
     }
